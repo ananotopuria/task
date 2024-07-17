@@ -1,3 +1,7 @@
+import React from "react";
+import Slider from "react-slick";
+import useWindowSize from "./useWindowSize"; 
+
 import card1 from "../assets/card1.png";
 import card2 from "../assets/card2.png";
 import card3 from "../assets/card3.png";
@@ -5,7 +9,14 @@ import card4 from "../assets/card4.png";
 import card5 from "../assets/card5.png";
 import card6 from "../assets/card6.png";
 
-export const cardInfo = [
+interface CardInfo {
+  id: number;
+  image: string;
+  title: string;
+  info: string;
+}
+
+export const cardInfo: CardInfo[] = [
   {
     id: 1,
     image: card1,
@@ -44,30 +55,66 @@ export const cardInfo = [
   },
 ];
 
-function Posts() {
+const Posts: React.FC = () => {
+  const size = useWindowSize();
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
-    <article className="flex flex-wrap p-4 text-white gap-20">
-      {cardInfo.map((card) => (
-        <div
-          key={card.id}
-          className="bg-[#145E2A] shadow-lg rounded-lg overflow-hidden w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
-        >
-          <img
-            src={card.image}
-            alt={card.title}
-            className="w-full h-48 object-cover"
-          />
-          <div className="p-4">
-            <h2 className="text-xl font-semibold mb-2">{card.title}</h2>
-            <p className="text-white">{card.info}</p>
-          </div>
-          <button className="rounded-lg bg-slate-300 text-gray-700 px-4 py-1 mt-2 mb-2" >
-              Read More
-            </button>
-        </div>
-      ))}
-    </article>
+    <div>
+      {size.width && size.width < 768 ? (
+        <Slider {...settings}>
+          {cardInfo.map((card) => (
+            <div
+              key={card.id}
+              className="bg-[#145E2A] shadow-lg rounded-lg overflow-hidden w-full"
+            >
+              <img
+                src={card.image}
+                alt={card.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h2 className="text-xl font-semibold mb-2">{card.title}</h2>
+                <p className="text-white">{card.info}</p>
+              </div>
+              <button className="rounded-lg bg-slate-300 text-gray-700 px-4 py-1 mt-2 mb-2">
+                Read More
+              </button>
+            </div>
+          ))}
+        </Slider>
+      ) : (
+        <article className="grid grid-cols-3 gap-4 text-white">
+          {cardInfo.map((card) => (
+            <div
+              key={card.id}
+              className="bg-[#145E2A] shadow-lg rounded-lg overflow-hidden w-full"
+            >
+              <img
+                src={card.image}
+                alt={card.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h2 className="text-xl font-semibold mb-2">{card.title}</h2>
+                <p className="text-white">{card.info}</p>
+              </div>
+              <button className="rounded-lg bg-slate-300 text-gray-700 px-4 py-1 mt-2 mb-2">
+                Read More
+              </button>
+            </div>
+          ))}
+        </article>
+      )}
+    </div>
   );
-}
+};
 
 export default Posts;

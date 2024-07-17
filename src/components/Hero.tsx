@@ -15,7 +15,7 @@ function Hero() {
             borderRadius: "2rem",
           }}
         >
-          <div className="text-white bg-[#145e2a97] absolute w-[20rem] right-20 bottom-60 p-4 rounded-lg">
+          <div className="text-white bg-[#145e2a97] absolute w-[20rem] right-20 lg:right-60 lg:bottom-80 bottom-60 p-4 rounded-lg">
             <h2>Urban Planning</h2>
             <p>Lörem ipsum europlande krohiskap panstik, förväntis.</p>
             <p>
